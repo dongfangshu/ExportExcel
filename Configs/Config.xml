@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
-	<input_path>Input</input_path>
+	<input_path>Table</input_path>
 	<bean_template>Template/Code/Bean.template</bean_template>
 	<bean_container_template>Template/Code/BeanContainer.template</bean_container_template>
 	<client_bytes_path>Bin</client_bytes_path>

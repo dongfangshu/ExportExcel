@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExportExcel", "ExportExcel.csproj", "{101CD824-7063-4945-B600-29E43C82C13D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExportExcel", "ExportExcel.csproj", "{101CD824-7063-4945-B600-29E43C82C13D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{4C4E3318-AFF9-4467-82DA-BA97A2C1CA2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigBean", "..\ConfigBean\ConfigBean.csproj", "{5A34A960-4DD3-4C12-9BFC-6F1D467A2860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,10 @@ Global
 		{101CD824-7063-4945-B600-29E43C82C13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{101CD824-7063-4945-B600-29E43C82C13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{101CD824-7063-4945-B600-29E43C82C13D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A34A960-4DD3-4C12-9BFC-6F1D467A2860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A34A960-4DD3-4C12-9BFC-6F1D467A2860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A34A960-4DD3-4C12-9BFC-6F1D467A2860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A34A960-4DD3-4C12-9BFC-6F1D467A2860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

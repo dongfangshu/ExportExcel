@@ -9,87 +9,87 @@ public class BytesBuffer
     private static int BoolSize = sizeof(bool);
     private static int ShortSize = sizeof(short);
 
-    public static unsafe void WriteBoolBytes(bool value, byte[] buffer, ref int size)
+    public static unsafe void WriteBoolBytes(bool value, byte[] buffer, ref int offset)
     {
         fixed (byte* ptr = buffer)
         {
-            *(bool*)(ptr + size) = value;
-            size += BoolSize;
+            *(bool*)(ptr + offset) = value;
+            offset += BoolSize;
         }
     }
-    public static unsafe void WriteIntBytes(int value, byte[] buffer, ref int size)
+    public static unsafe void WriteIntBytes(int value, byte[] buffer, ref int offset)
     {
         fixed (byte* ptr = buffer)
         {
-            *(int*)(ptr + size) = value;
-            size += IntSize;
+            *(int*)(ptr + offset) = value;
+            offset += IntSize;
         }
     }
-    public static unsafe void WriteLongBytes(long value, byte[] buffer, ref int size)
+    public static unsafe void WriteLongBytes(long value, byte[] buffer, ref int offset)
     {
         fixed (byte* ptr = buffer)
         {
-            *(long*)(ptr + size) = value;
-            size += LongSize;
+            *(long*)(ptr + offset) = value;
+            offset += LongSize;
         }
     }
-    public static unsafe void WriteShortBytes(short value, byte[] buffer, ref int size)
+    public static unsafe void WriteShortBytes(short value, byte[] buffer, ref int offset)
     {
         fixed (byte* ptr = buffer)
         {
-            *(short*)(ptr + size) = value;
-            size += ShortSize;
+            *(short*)(ptr + offset) = value;
+            offset += ShortSize;
         }
     }
-    public static void WriteStringBytes(string value, byte[] buffer, ref int size)
+    public static void WriteStringBytes(string value, byte[] buffer, ref int offset)
     {
         byte[] temp = System.Text.Encoding.UTF8.GetBytes(value);
         int length = temp.Length;//先拿出长度
-        WriteIntBytes(length, buffer, ref size);//先存长度 size+4
-        Array.Copy(temp, 0, buffer, size, length);//长度存完再存string 的byte[] size+length
-        size += length;
+        WriteIntBytes(length, buffer, ref offset);//先存长度 size+4
+        Array.Copy(temp, 0, buffer, offset, length);//长度存完再存string 的byte[] size+length
+        offset += length;
     }
-    public static string ReadStringBytes(byte[] data, ref int index)
+    public static string ReadStringBytes(byte[] data, ref int offset)
     {
         //先取出长度
-        int length = ReadIntBytes(data, ref index);
-        byte[] temp = data.Skip(index).Take(length).ToArray();//取出目标数组
-        index += length;
+        int length = ReadIntBytes(data, ref offset);
+        byte[] temp = data.Skip(offset).Take(length).ToArray();//取出目标数组
+        offset += length;
         return System.Text.Encoding.UTF8.GetString(temp);
     }
-    public static unsafe int ReadIntBytes(byte[] data, ref int index)
+    public static unsafe int ReadIntBytes(byte[] data, ref int offset)
     {
         fixed (byte* ptr = data)
         {
-            int value = *(int*)(ptr + index);
-            index += IntSize;
+            int value = *(int*)(ptr + offset);
+            offset += IntSize;
             return value;
         }
     }
-    public static unsafe long ReadLongBytes(byte[] data, ref int index)
+    public static unsafe long ReadLongBytes(byte[] data, ref int offset)
     {
         fixed (byte* ptr = data)
         {
-            long value = *(long*)(ptr + index);
-            index += LongSize;
+            long value = *(long*)(ptr + offset);
+            offset += LongSize;
             return value;
         }
     }
-    public static unsafe bool ReadBoolBytes(byte[] data, ref int index)
+    public static unsafe bool ReadBoolBytes(byte[] data, ref int offset)
     {
         fixed (byte* ptr = data)
         {
-            bool value = *(bool*)(ptr + index);
-            index += BoolSize;
+            bool value = *(bool*)(ptr + offset);
+            offset += BoolSize;
             return value;
         }
     }
-    public static unsafe short ReadShortBytes(byte[] data, ref int index)
+    public static unsafe short ReadShortBytes(byte[] data, ref int offset)
     {
         fixed (byte* ptr = data)
         {
-            short value = *(short*)(ptr + index);
-            index += BoolSize;
+            short value = *(short*)(ptr + offset);
+            offset += BoolSize;
             return value;
         }
     }

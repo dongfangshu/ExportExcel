@@ -29,6 +29,9 @@
     <None Update="Input\测试表格.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Table\测试表格.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Template\Code\Bean.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
