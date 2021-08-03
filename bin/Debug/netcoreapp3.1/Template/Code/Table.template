@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Data.Beans
+{
+   public class {{sheetname}}Bean
+    {
+        ///<summary>{{excelname}}</summary>
+        ///<summary>{{sheetdesc}}</summary>
+        {{ for property in propertyinfos }}
+        {{-if property.propertytype=="lang"}}
+            private int m_{{ property.propertyname }};
+            public {{property.propertytype}} {{property.propertyname}}
+            {
+                get{
+                if(m_{{property.propertyname}}==0)
+                   return "";
+                 t_testBean bean=Config.Bean<t_testBean,int>(m_{{property.propertyname}}==0);
+                 if(bean!=null)
+                    return bean.t_ddd;
+                    }
+             }
+          {{-else}}
+             public {{property.propertytype}} {{property.propertyname}};
+        {{end -}}
+        {{ end }}
+
+        public void LoadData(byte[] data, ref int offset)
+        {
+         {{for property in propertyinfos}}
+         {{- if property.propertytype=="lang"}}
+             m_{{ property.propertyname }}=read.int;
+             {{- else if property.propertytype=="int"}}
+             {{ property.propertyname }}=read.int;
+             {{- else if property.propertytype=="string"}}
+             {{ property.propertyname }}=read.string;
+          {{end -}}
+          {{end}}
+        }
+        
+    }
+}

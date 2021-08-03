@@ -32,7 +32,7 @@
     <None Update="Table\测试表格.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Code\Bean.template">
+    <None Update="Template\Code\Table.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
