@@ -6,6 +6,7 @@ using NPOI.XSSF;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using System;
+using Scriban;
 
 namespace ExportExcel.Helper
 {
@@ -39,7 +40,8 @@ namespace ExportExcel.Helper
                         int offSize = 0;
                         SheetInfo sheetInfo = new SheetInfo();
                         sheetInfo.SheetName = Sheet.SheetName;
-                        sheetInfo.ExcelName = file;
+                        string excelName= Path.GetFileNameWithoutExtension(file);
+                        sheetInfo.ExcelName = excelName;
                         IRow PropertyDescRow = Sheet.GetRow(1);//属性描述
                         IRow PropertyNameRow = Sheet.GetRow(2);//属性行
                         IRow PropertyTypeRow = Sheet.GetRow(3);//属性类型
@@ -92,11 +94,22 @@ namespace ExportExcel.Helper
                         Array.Copy(BytesDate,0,practicalBytes,0,offSize);
                         File.WriteAllBytes(Setting.Instance.ClientBytesPath+"/"+ sheetInfo.SheetName+"Bean.bytes",practicalBytes);
                         Logger.Log(sheetInfo.SheetName+"导出成功");
+
+                        //Export TemplateCode
+                        ExportTemplate(sheetInfo);
                     }
                 }
             }
 
 
+        }
+        public static void ExportTemplate(SheetInfo sheetInfo)
+        {
+            string beanCode = File.ReadAllText(Setting.Instance.BeanTemplatePath);
+            Template beanTemplate = Template.Parse(beanCode);
+            string Code= beanTemplate.Render(sheetInfo);
+            File.WriteAllText(Setting.Instance.ClientCodePath+"/"+sheetInfo.SheetName+".cs",Code);
+            Logger.Log(sheetInfo.SheetName + "导出成功");
         }
         public static void ExportAll()
         {
@@ -105,8 +118,8 @@ namespace ExportExcel.Helper
             {
                 Logger.Err("配置表不存在");
             }
-            var xlslFiles= directoryInfo.GetFiles("*.xlsx");
-            var files= xlslFiles.Select((f)=> {return f.FullName; }).ToList();
+            FileInfo[] xlslFiles= directoryInfo.GetFiles("*.xlsx");
+            List<string> files= xlslFiles.Select((f)=> {return f.FullName; }).ToList();
             Export(files,Setting.Instance.ClientBytesPath, Setting.Instance.ClientCodePath);
         }
     }

@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Data.Beans
+{
+   public class Bean
+    {
+        {{ExcelName}}
+        {{SheetName}}
+        {{SheetDesc}}
+        {{ for product in propertyInfos }}
+            {{ product.PropertyName }}
+            {{ product.PropertyDesc }}
+            {{ product.ProPertyType}}
+        {{ end }}
+        ///<summary>{{excelname}}</summary>
+    }
+}

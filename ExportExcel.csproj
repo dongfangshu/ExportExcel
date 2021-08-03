@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="NPOI" Version="2.5.4" />
+    <PackageReference Include="Scriban" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +24,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Input\Test.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Input\测试表格.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\Code\Bean.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
