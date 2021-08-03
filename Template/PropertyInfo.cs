@@ -5,8 +5,8 @@ using System.Text;
 
 public class PropertyInfo
 {
-    public string PropertyDesc { get; set; }
-    public string PropertyName { get; set; }
-    public string ProPertyType { get; set; }
+    public string propertydesc { get; set; }
+    public string propertyname { get; set; }
+    public string propertytype { get; set; }
 }
 

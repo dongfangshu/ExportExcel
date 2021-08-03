@@ -39,9 +39,9 @@ namespace ExportExcel.Helper
                         byte[] BytesDate = new byte[1024];
                         int offSize = 0;
                         SheetInfo sheetInfo = new SheetInfo();
-                        sheetInfo.SheetName = Sheet.SheetName;
+                        sheetInfo.sheetname = Sheet.SheetName;
                         string excelName= Path.GetFileNameWithoutExtension(file);
-                        sheetInfo.ExcelName = excelName;
+                        sheetInfo.excelname = excelName;
                         IRow PropertyDescRow = Sheet.GetRow(1);//属性描述
                         IRow PropertyNameRow = Sheet.GetRow(2);//属性行
                         IRow PropertyTypeRow = Sheet.GetRow(3);//属性类型
@@ -52,10 +52,10 @@ namespace ExportExcel.Helper
                             if (cell == null)
                                 continue;
                             PropertyInfo cellProperty = new PropertyInfo();
-                            cellProperty.PropertyDesc = PropertyDescRow.GetCell(j).StringCellValue;
-                            cellProperty.PropertyName = "t_" + cell.StringCellValue;
-                            cellProperty.ProPertyType = PropertyTypeRow.GetCell(j).StringCellValue;
-                            sheetInfo.propertyInfos.Add(cellProperty);
+                            cellProperty.propertydesc = PropertyDescRow.GetCell(j).StringCellValue;
+                            cellProperty.propertyname = "t_" + cell.StringCellValue;
+                            cellProperty.propertytype = PropertyTypeRow.GetCell(j).StringCellValue;
+                            sheetInfo.propertyinfos.Add(cellProperty);
                             validMap.Add(j, PropertyTypeRow.GetCell(j).StringCellValue);
                         }
                         for (int k = 4; k < Sheet.LastRowNum; k++)
@@ -92,8 +92,8 @@ namespace ExportExcel.Helper
                         //Export Bytes
                         byte[] practicalBytes = new byte[offSize];
                         Array.Copy(BytesDate,0,practicalBytes,0,offSize);
-                        File.WriteAllBytes(Setting.Instance.ClientBytesPath+"/"+ sheetInfo.SheetName+"Bean.bytes",practicalBytes);
-                        Logger.Log(sheetInfo.SheetName+"导出成功");
+                        File.WriteAllBytes(Setting.Instance.ClientBytesPath+"/"+ sheetInfo.sheetname+"Bean.bytes",practicalBytes);
+                        Logger.Log(sheetInfo.sheetname+"导出成功");
 
                         //Export TemplateCode
                         ExportTemplate(sheetInfo);
@@ -108,8 +108,8 @@ namespace ExportExcel.Helper
             string beanCode = File.ReadAllText(Setting.Instance.BeanTemplatePath);
             Template beanTemplate = Template.Parse(beanCode);
             string Code= beanTemplate.Render(sheetInfo);
-            File.WriteAllText(Setting.Instance.ClientCodePath+"/"+sheetInfo.SheetName+".cs",Code);
-            Logger.Log(sheetInfo.SheetName + "导出成功");
+            File.WriteAllText(Setting.Instance.ClientCodePath+"/"+sheetInfo.sheetname+".cs",Code);
+            Logger.Log(sheetInfo.sheetname + "导出成功");
         }
         public static void ExportAll()
         {
