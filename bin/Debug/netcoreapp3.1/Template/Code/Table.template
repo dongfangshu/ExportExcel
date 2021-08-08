@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Beans
+namespace Data.Table
 {
-   public class {{sheetname}}Bean
+   public class {{sheetname}}
     {
         ///<summary>{{excelname}}</summary>
         ///<summary>{{sheetdesc}}</summary>
         {{ for property in propertyinfos }}
-        {{-if property.propertytype=="lang"}}
+        {{-if property.propertytype=="textformat"}}
             private int m_{{ property.propertyname }};
-            public {{property.propertytype}} {{property.propertyname}}
+            public string {{property.propertyname}}
             {
                 get{
                 if(m_{{property.propertyname}}==0)
                    return "";
-                 t_testBean bean=Config.Bean<t_testBean,int>(m_{{property.propertyname}}==0);
+                 t_languageTable languageTable=Config.Bean<t_languageTable,int>(m_{{property.propertyname}});
                  if(bean!=null)
-                    return bean.t_ddd;
+                    return languageTable.t_str;
                     }
              }
           {{-else}}
@@ -29,12 +29,12 @@ namespace Data.Beans
         public void LoadData(byte[] data, ref int offset)
         {
          {{for property in propertyinfos}}
-         {{- if property.propertytype=="lang"}}
-             m_{{ property.propertyname }}=read.int;
+         {{- if property.propertytype=="textformat"}}
+             m_{{ property.propertyname }}=BytesBuffer.ReadIntBytes(data,offset);
              {{- else if property.propertytype=="int"}}
-             {{ property.propertyname }}=read.int;
+             {{ property.propertyname }}=BytesBuffer.ReadIntBytes(data,offset);
              {{- else if property.propertytype=="string"}}
-             {{ property.propertyname }}=read.string;
+             {{ property.propertyname }}=BytesBuffer.ReadStringBytes(data,offset);
           {{end -}}
           {{end}}
         }

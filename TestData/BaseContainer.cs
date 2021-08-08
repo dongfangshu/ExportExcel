@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ConfigTable
 {
-   public abstract class BaseContainer
+    internal  class BaseContainer
     {
-
-        public abstract T GetData<T,K>(K key) where T:BaseTable;
+        internal virtual T GetData<T>(int id) where T:BaseTable { return null; }
+        internal virtual void LoadData(byte[] data) { }
     }
 }

@@ -19,9 +19,9 @@ namespace ConfigTable
             get {
                 if (m_t_name == 0)
                     return "";
-                LanguageTable language= TableDock.GetTable<LanguageTable, int>(m_t_name);
+                t_LanguageTable language= TableDock.GetTable<t_LanguageTable>(m_t_name);
                 if (language != null)
-                    return language.t_txt;
+                    return language.t_str;
                 return "";
             }
         }

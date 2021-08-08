@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ConfigTable;
 using ExportExcel.Helper;
 
 namespace ExportExcel
@@ -34,6 +35,17 @@ namespace ExportExcel
         private void ClientCheckClick(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            TableDock.Init();
+            t_LanguageTable languageTable= TableDock.GetTable<t_LanguageTable>(1);
+            t_LanguageTable languageTable1= TableDock.GetTable<t_LanguageTable>(2);
+            t_LanguageTable languageTable2= TableDock.GetTable<t_LanguageTable>(3);
+            t_LanguageTable languageTable3= TableDock.GetTable<t_LanguageTable>(4);
+            t_LanguageTable languageTable4= TableDock.GetTable<t_LanguageTable>(5);
+            t_LanguageTable languageTable5= TableDock.GetTable<t_LanguageTable>(6);
         }
     }
 }

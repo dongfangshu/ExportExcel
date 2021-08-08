@@ -23,3 +23,5 @@ D:\Project\ExportExcel\obj\Debug\netcoreapp3.1\ExportExcel.pdb
 D:\Project\ExportExcel\obj\Debug\netcoreapp3.1\ExportExcel.genruntimeconfig.cache
 D:\Project\ExportExcel\bin\Debug\netcoreapp3.1\Table\测试表格.xlsx
 D:\Project\ExportExcel\bin\Debug\netcoreapp3.1\Template\Code\Table.template
+D:\Project\ExportExcel\obj\Debug\netcoreapp3.1\ExportExcel.csproj.AssemblyReference.cache
+D:\Project\ExportExcel\bin\Debug\netcoreapp3.1\Template\Code\TableContainer.template

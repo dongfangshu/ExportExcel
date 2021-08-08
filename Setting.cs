@@ -9,9 +9,9 @@ namespace ExportExcel
         public static Setting Instance;
         public string ClientBytesPath { get; private set; }
         public string ClientCodePath { get; private set; }
-        public string BeanTemplatePath { get; private set; }
-        public string BeanTemplateContainerPath { get; private set; }
-        public string InputPath { get; private set; }
+        public string TableTemplatePath { get; private set; }
+        public string TableTemplateContainerPath { get; private set; }
+        public string TablePath { get; private set; }
         public static void Init(string configPath)
         {
             if (!File.Exists(configPath))
@@ -27,15 +27,15 @@ namespace ExportExcel
             XmlNode xmlNode = xml.SelectSingleNode("config");
             Instance.ClientBytesPath= xmlNode.SelectNodes("client_bytes_path").Item(0).InnerText;
             Instance.ClientCodePath= xmlNode.SelectNodes("client_code_path").Item(0).InnerText;
-            Instance.InputPath= xmlNode.SelectNodes("input_path").Item(0).InnerText;
-            Instance.BeanTemplatePath= xmlNode.SelectNodes("bean_template").Item(0).InnerText;
-            Instance.BeanTemplateContainerPath = xmlNode.SelectNodes("bean_container_template").Item(0).InnerText;
+            Instance.TablePath= xmlNode.SelectNodes("table_path").Item(0).InnerText;
+            Instance.TableTemplatePath= xmlNode.SelectNodes("table_template").Item(0).InnerText;
+            Instance.TableTemplateContainerPath = xmlNode.SelectNodes("table_container_template").Item(0).InnerText;
             //Logger.Log(Instance.ToString());
             ExportExcel.Helper.ExportHelper.InitPath();
         }
         public override string ToString()
         {
-            return $"配置表路径：{InputPath}\n客户端导表输出路径：{ClientBytesPath}\n客户端代码输出路径：{ClientCodePath}";
+            return $"配置表路径：{TablePath}\n客户端导表输出路径：{ClientBytesPath}\n客户端代码输出路径：{ClientCodePath}";
         }
     }
 }
