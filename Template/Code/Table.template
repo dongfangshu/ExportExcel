@@ -11,12 +11,13 @@ namespace ConfigTable
         {{ for property in propertyinfos }}
         {{-if property.propertytype=="textformat"}}
             private int m_{{ property.propertyname }};
+            ///<summary>{{property.propertydesc}}</summary>
             public string {{property.propertyname}}
             {
                 get{
                 if(m_{{property.propertyname}}==0)
                    return "";
-                 t_languageTable languageTable=TableDock.GetTable<t_languageTable>(m_{{property.propertyname}});
+                 t_languageTable languageTable=TableDock.Instanced.GetTable<t_languageTable>(m_{{property.propertyname}});
                  if(languageTable!=null)
 				 {
 					return languageTable.t_str;
@@ -25,6 +26,7 @@ namespace ConfigTable
 				}
 			}
           {{-else}}
+             ///<summary>{{property.propertydesc}}</summary>
              public {{property.propertytype}} {{property.propertyname}};
         {{end -}}
         {{ end }}
@@ -38,6 +40,8 @@ namespace ConfigTable
              {{ property.propertyname }}=BytesBuffer.ReadIntBytes(data,ref offset);
              {{- else if property.propertytype=="string"}}
              {{ property.propertyname }}=BytesBuffer.ReadStringBytes(data,ref offset);
+             {{- else if property.propertytype=="long"}}
+             {{ property.propertyname }}=BytesBuffer.ReadLongBytes(data,ref offset);
           {{end -}}
           {{end}}
         }

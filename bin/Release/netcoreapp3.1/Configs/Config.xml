@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<config>
-	<table_path>Table</table_path>
-	<table_template>Template/Code/Table.template</table_template>
-	<table_container_template>Template/Code/TableContainer.template</table_container_template>
-	<client_bytes_path>../../UnityMain/Assets/Binary</client_bytes_path>
-	<client_code_path>../../UnityMain/Assets/GenerateCode</client_code_path>
-</config>

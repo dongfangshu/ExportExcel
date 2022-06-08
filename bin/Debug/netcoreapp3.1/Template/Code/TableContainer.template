@@ -6,10 +6,9 @@ using System.Diagnostics;
 
 namespace ConfigTable
 {
-    [TableAttribute(typeof({{sheetname}}))]
     internal class {{sheetname}}Container: BaseContainer
     {
-        private string TableFile = typeof{{sheetname}}.Name;
+        private string TableFile = typeof({{sheetname}}).Name;
         List<{{sheetname}}> TableList = new List<{{sheetname}}>();
         Dictionary<int, {{sheetname}}> TableMap = new Dictionary<int, {{sheetname}}>();
         internal override T GetData<T>(int id)
@@ -22,7 +21,7 @@ namespace ConfigTable
         internal override void LoadData(byte[] data)
         {
             int OffSize = 0;
-#if EDITOR
+#if UNITY_EDITOR
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 #endif
@@ -34,9 +33,20 @@ namespace ConfigTable
                 TableList.Add(table);
             }
             //IsLoad = true;
-#if EDITOR
+#if UNITY_EDITOR
             stopwatch.Stop();
             Console.WriteLine($"初始化{TableFile}耗时{stopwatch.ElapsedMilliseconds}");
 #endif
+        }
+
+        internal override Dictionary<int, TTable> GetDictionary<TTable>()
+        {
+            return TableMap as Dictionary<int, TTable>;
+        }
+
+        internal override List<T> GetList<T>()
+        {
+            return TableList as List<T>;
+        }
     }
 }

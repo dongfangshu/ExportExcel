@@ -11,7 +11,7 @@ namespace ExportExcel.Helper
 {
     public class ExportHelper
     {
-        public static void InitPath()
+        public static void ClearPath()
         {
             if (!Directory.Exists(Setting.Instance.ClientBytesPath))
             {
@@ -34,8 +34,9 @@ namespace ExportExcel.Helper
             }
 
         }
-        public static void Export(List<string> files,string bytesPath,string codePath)
+        public static void Export(List<string> files)
         {
+            DockerInfo dockerInfo = new DockerInfo();
             foreach (var file in files)
             {
                 using (var stream=File.Open(file,FileMode.Open))
@@ -52,6 +53,7 @@ namespace ExportExcel.Helper
                         sheetInfo.sheetname = Sheet.SheetName;
                         string excelName= Path.GetFileNameWithoutExtension(file);
                         sheetInfo.excelname = excelName;
+                        sheetInfo.sheetdesc = Sheet.GetRow(0).GetCell(0).StringCellValue;
                         IRow PropertyDescRow = Sheet.GetRow(1);//属性描述
                         IRow PropertyNameRow = Sheet.GetRow(2);//属性行
                         IRow PropertyTypeRow = Sheet.GetRow(3);//属性类型
@@ -62,13 +64,22 @@ namespace ExportExcel.Helper
                             if (cell == null)
                                 continue;
                             PropertyInfo cellProperty = new PropertyInfo();
-                            cellProperty.propertydesc = PropertyDescRow.GetCell(j).StringCellValue;
+                            var descCell = PropertyDescRow.GetCell(j);
+                            if (descCell == null)
+                            {
+                                cellProperty.propertydesc = "";
+                            }
+                            else
+                            {
+                                cellProperty.propertydesc = descCell.StringCellValue;
+                            }
+
                             cellProperty.propertyname = "t_" + cell.StringCellValue;
                             cellProperty.propertytype = PropertyTypeRow.GetCell(j).StringCellValue;
                             sheetInfo.propertyinfos.Add(cellProperty);
                             validMap.Add(j, PropertyTypeRow.GetCell(j).StringCellValue);
                         }
-                        for (int k = 4; k < Sheet.LastRowNum; k++)
+                        for (int k = 4; k <= Sheet.LastRowNum; k++)
                         {
                             IRow SheetRow = Sheet.GetRow(k);
                             for (int m = 0; m < SheetRow.LastCellNum; m++)
@@ -119,11 +130,15 @@ namespace ExportExcel.Helper
 
                         //Export TemplateCode
                         ExportTemplate(sheetInfo);
+                        dockerInfo.sheets.Add(sheetInfo);
                     }
                 }
             }
 
-
+            string dockerCode = File.ReadAllText(Setting.Instance.TableTemplateDockerPath);
+            Template dockerTemplate = Template.Parse(dockerCode);
+            string scripts = dockerTemplate.Render(dockerInfo);
+            File.WriteAllText(Setting.Instance.ClientCodePath + "/" +"TableDock" + ".cs", scripts);
         }
         public static void ExportTemplate(SheetInfo sheetInfo)
         {
@@ -146,7 +161,7 @@ namespace ExportExcel.Helper
             }
             FileInfo[] xlslFiles= directoryInfo.GetFiles("*.xlsx");
             List<string> files= xlslFiles.Select((f)=> {return f.FullName; }).ToList();
-            Export(files,Setting.Instance.ClientBytesPath, Setting.Instance.ClientCodePath);
+            Export(files);
         }
     }
 }

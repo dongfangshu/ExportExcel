@@ -3,6 +3,7 @@
 	<table_path>Table</table_path>
 	<table_template>Template/Code/Table.template</table_template>
 	<table_container_template>Template/Code/TableContainer.template</table_container_template>
-	<client_bytes_path>../../UnityMain/Assets/Binary</client_bytes_path>
-	<client_code_path>../../UnityMain/Assets/GenerateCode</client_code_path>
+	<table_docker_template>Template/Code/TableDocker.template</table_docker_template>
+	<client_bytes_path>GenCode</client_bytes_path>
+	<client_code_path>GenCode</client_code_path>
 </config>

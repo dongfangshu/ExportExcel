@@ -39,6 +39,13 @@
     <None Update="Template\Code\TableContainer.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Template\Code\TableDocker.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GenCode\" />
   </ItemGroup>
 
 </Project>

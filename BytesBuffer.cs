@@ -53,9 +53,10 @@ public class BytesBuffer
     {
         //先取出长度
         int length = ReadIntBytes(data, ref offset);
-        byte[] temp = data.Skip(offset).Take(length).ToArray();//取出目标数组
+        //byte[] temp = data.Skip(offset).Take(length).ToArray();//取出目标数组
+        var str = System.Text.Encoding.UTF8.GetString(data,offset,length);
         offset += length;
-        return System.Text.Encoding.UTF8.GetString(temp);
+        return str;
     }
     public static unsafe int ReadIntBytes(byte[] data, ref int offset)
     {

@@ -11,6 +11,7 @@ namespace ExportExcel
         public string ClientCodePath { get; private set; }
         public string TableTemplatePath { get; private set; }
         public string TableTemplateContainerPath { get; private set; }
+        public string TableTemplateDockerPath { get; private set; }
         public string TablePath { get; private set; }
         public static void Init(string configPath)
         {
@@ -30,8 +31,9 @@ namespace ExportExcel
             Instance.TablePath= xmlNode.SelectNodes("table_path").Item(0).InnerText;
             Instance.TableTemplatePath= xmlNode.SelectNodes("table_template").Item(0).InnerText;
             Instance.TableTemplateContainerPath = xmlNode.SelectNodes("table_container_template").Item(0).InnerText;
+            Instance.TableTemplateDockerPath = xmlNode.SelectNodes("table_docker_template").Item(0).InnerText;
             //Logger.Log(Instance.ToString());
-            ExportExcel.Helper.ExportHelper.InitPath();
+            //ExportExcel.Helper.ExportHelper.InitPath();
         }
         public override string ToString()
         {

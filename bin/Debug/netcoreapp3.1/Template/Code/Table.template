@@ -2,39 +2,46 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Table
+namespace ConfigTable
 {
-   public class {{sheetname}}
+   public class {{sheetname}}: BaseTable
     {
         ///<summary>{{excelname}}</summary>
         ///<summary>{{sheetdesc}}</summary>
         {{ for property in propertyinfos }}
         {{-if property.propertytype=="textformat"}}
             private int m_{{ property.propertyname }};
+            ///<summary>{{property.propertydesc}}</summary>
             public string {{property.propertyname}}
             {
                 get{
                 if(m_{{property.propertyname}}==0)
                    return "";
-                 t_languageTable languageTable=Config.Bean<t_languageTable,int>(m_{{property.propertyname}});
-                 if(bean!=null)
-                    return languageTable.t_str;
-                    }
-             }
+                 t_languageTable languageTable=TableDock.Instanced.GetTable<t_languageTable>(m_{{property.propertyname}});
+                 if(languageTable!=null)
+				 {
+					return languageTable.t_str;
+				 }
+				 return "";
+				}
+			}
           {{-else}}
+             ///<summary>{{property.propertydesc}}</summary>
              public {{property.propertytype}} {{property.propertyname}};
         {{end -}}
         {{ end }}
 
-        public void LoadData(byte[] data, ref int offset)
+        public override void LoadData(byte[] data, ref int offset)
         {
          {{for property in propertyinfos}}
          {{- if property.propertytype=="textformat"}}
-             m_{{ property.propertyname }}=BytesBuffer.ReadIntBytes(data,offset);
+             m_{{ property.propertyname }}=BytesBuffer.ReadIntBytes(data,ref offset);
              {{- else if property.propertytype=="int"}}
-             {{ property.propertyname }}=BytesBuffer.ReadIntBytes(data,offset);
+             {{ property.propertyname }}=BytesBuffer.ReadIntBytes(data,ref offset);
              {{- else if property.propertytype=="string"}}
-             {{ property.propertyname }}=BytesBuffer.ReadStringBytes(data,offset);
+             {{ property.propertyname }}=BytesBuffer.ReadStringBytes(data,ref offset);
+             {{- else if property.propertytype=="long"}}
+             {{ property.propertyname }}=BytesBuffer.ReadLongBytes(data,ref offset);
           {{end -}}
           {{end}}
         }
