@@ -122,7 +122,6 @@ namespace ExportExcel
             this.textBox1.Size = new System.Drawing.Size(272, 167);
             this.textBox1.TabIndex = 8;
             this.textBox1.Text = "啊大大的大苏打\\n十大";
-            this.textBox1.WordWrap = false;
             // 
             // label3
             // 

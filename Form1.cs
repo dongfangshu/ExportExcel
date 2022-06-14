@@ -1,15 +1,10 @@
-﻿using System;
+﻿using ExportExcel.Helper;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ConfigTable;
-using ExportExcel.Helper;
 
 namespace ExportExcel
 {
@@ -27,7 +22,8 @@ namespace ExportExcel
             Logger.TextBox = textBox1;
             Setting.Init("Configs/Config.xml");
             var files = Directory.GetFiles(Setting.Instance.TablePath,"*.xlsx");
-            checkedListBox1.Items.AddRange(files);
+            var fileNames = files.Select(x=>Path.GetFileNameWithoutExtension(x));
+            checkedListBox1.Items.AddRange(fileNames.ToArray());
         }
         private void ClientAllClick(object sender, EventArgs e)
         {

@@ -12,8 +12,12 @@ namespace ExportExcel
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            if (args!=null&&args.Length>0)
+            {
+                Setting.CurrentPath = args[0]+"/"+args[1]+"/";
+            }
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
