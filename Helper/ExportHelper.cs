@@ -90,7 +90,7 @@ namespace ExportExcel.Helper
                                 string Type = validMap[m];
                                 if (Type == "int")
                                 {
-                                    BytesBuffer.WriteIntBytes((int)CurrentCell.NumericCellValue, BytesDate, ref offSize);
+                                    BytesBuffer.WriteInt((int)CurrentCell.NumericCellValue, BytesDate, ref offSize);
                                 }
                                 else if (Type == "string")
                                 {
@@ -104,19 +104,19 @@ namespace ExportExcel.Helper
                                         temp = CurrentCell.StringCellValue;
                                     }
 
-                                    BytesBuffer.WriteStringBytes(temp, BytesDate, ref offSize);
+                                    BytesBuffer.WriteString(temp, BytesDate, ref offSize);
                                 }
                                 else if (Type == "textformat")
                                 {
-                                    BytesBuffer.WriteIntBytes((int)CurrentCell.NumericCellValue,BytesDate,ref offSize);
+                                    BytesBuffer.WriteInt((int)CurrentCell.NumericCellValue,BytesDate,ref offSize);
                                 }
                                 else if(Type=="short")
                                 {
-                                    BytesBuffer.WriteShortBytes((short)CurrentCell.NumericCellValue,BytesDate,ref offSize);
+                                    BytesBuffer.WriteShort((short)CurrentCell.NumericCellValue,BytesDate,ref offSize);
                                 }
                                 else if (Type=="long")
                                 {
-                                    BytesBuffer.WriteLongBytes((long)CurrentCell.NumericCellValue, BytesDate, ref offSize);
+                                    BytesBuffer.WriteLong((long)CurrentCell.NumericCellValue, BytesDate, ref offSize);
                                 }
                             }
                         }
